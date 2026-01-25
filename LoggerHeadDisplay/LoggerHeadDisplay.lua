@@ -1,5 +1,4 @@
 local addonName, addon = ...
-local LOGO_PATH = "Interface\\AddOns\\LoggerHeadDisplay\\Logo" -- place Logo.tga (128x128) in addon folder
 
 -- Addon initialization
 local LHD = CreateFrame("Frame", "LoggerHeadDisplayFrame")
@@ -182,7 +181,7 @@ function SetupDataObjectHandlers()
     end)
     
     -- Listen for attribute changes
-    if ldb and ldb.callbacks then
+    if ldb and ldb.callbacks and type(ldb.callbacks.RegisterCallback) == "function" then
         ldb.callbacks:RegisterCallback("LibDataBroker_AttributeChanged_LoggerHead", function(event, name, key, value, obj)
             UpdateDisplay()
         end)
