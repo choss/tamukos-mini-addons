@@ -3,7 +3,7 @@
 ## Notes: Displays LibDataBroker LoggerHead plugin on screen
 ## Author: Tamuko
 ## Version: 1.0.0
-## X-Category: mini-addons
+## Category: Tamukos mini-addons
 ## SavedVariables: LoggerHeadDisplayDB
 
 Libs\LibStub\LibStub.lua

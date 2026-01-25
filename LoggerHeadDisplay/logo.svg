@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="200" viewBox="0 0 360 200" fill="none">
+  <rect width="360" height="200" rx="16" fill="#0F172A"/>
+  <rect x="16" y="16" width="328" height="168" rx="12" fill="#111827" stroke="#1F2937" stroke-width="2"/>
+  <g filter="url(#glow)">
+    <circle cx="76" cy="100" r="42" fill="#38BDF8" fill-opacity="0.18"/>
+  </g>
+  <circle cx="76" cy="100" r="28" fill="#38BDF8"/>
+  <path d="M76 76 L92 90 L92 122 L76 110 L60 122 L60 90 Z" fill="#0F172A"/>
+  <path d="M76 90 C90 90 98 98 98 110 C98 122 90 130 76 130 C62 130 54 122 54 110 C54 98 62 90 76 90 Z" stroke="#E5E7EB" stroke-width="4" fill="none"/>
+  <text x="134" y="104" fill="#E5E7EB" font-family="Arial, sans-serif" font-size="28" font-weight="700">LOGGERHEAD</text>
+  <text x="134" y="132" fill="#38BDF8" font-family="Arial, sans-serif" font-size="18" font-weight="600">DISPLAY</text>
+  <defs>
+    <filter id="glow" x="0" y="24" width="152" height="152" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+    </filter>
+  </defs>
+</svg>

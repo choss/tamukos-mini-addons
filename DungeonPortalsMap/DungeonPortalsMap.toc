@@ -3,7 +3,7 @@
 ## Notes: Interactive minimap overlay showing Timeways dungeon portal locations with live player positioning
 ## Author: Tamuko
 ## Version: 1.0.0
-## X-Category: mini-addons
+## Category: Tamukos mini-addons
 ## SavedVariables: DungeonPortalsMapDB
 
 DungeonPortalsMap.lua
