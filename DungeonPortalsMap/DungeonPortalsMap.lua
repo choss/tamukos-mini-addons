@@ -153,6 +153,13 @@ local function CreateMapDisplay()
     mapContainer.iconScale = iconScale
     mapContainer.alpha = alpha
     
+    -- Corner logo (uses Logo.tga if present)
+    mapContainer.logo = mapContainer:CreateTexture(nil, "OVERLAY")
+    mapContainer.logo:SetSize(32, 32)
+    mapContainer.logo:SetPoint("TOPLEFT", mapContainer, "TOPLEFT", 4, -4)
+    mapContainer.logo:SetTexture(LOGO_PATH)
+    mapContainer.logo:SetAlpha(0.85)
+    
     -- Player position marker
     mapContainer.player = CreateFrame("Frame", "DPM_Player", mapContainer)
     mapContainer.player:SetSize(16, 16)

@@ -4,6 +4,7 @@
 ## Author: Tamuko
 ## Version: 1.0.0
 ## Category: Tamukos mini-addons
+## IconTexture:  Interface\AddOns\LoggerHeadDisplay\Logo
 ## SavedVariables: LoggerHeadDisplayDB
 
 Libs\LibStub\LibStub.lua

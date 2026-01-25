@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" fill="none">
+  <rect width="128" height="128" rx="8" fill="#0B1220"/>
+  <rect x="4" y="4" width="120" height="120" rx="6" fill="#1F2937" stroke="#8B5CF6" stroke-width="1.5"/>
+  
+  <!-- Glow background -->
+  <circle cx="64" cy="48" r="28" fill="#8B5CF6" fill-opacity="0.12"/>
+  
+  <!-- Compass/Navigation diamond -->
+  <circle cx="64" cy="48" r="18" fill="#8B5CF6"/>
+  <path d="M64 32 L80 48 L64 64 L48 48 Z" fill="#0B1220" stroke="#E5E7EB" stroke-width="2"/>
+  <circle cx="64" cy="48" r="4" fill="#E5E7EB"/>
+  
+  <!-- Direction arrow pointing right -->
+  <path d="M82 48 L96 48" stroke="#8B5CF6" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M92 42 L98 48 L92 54 Z" fill="#8B5CF6"/>
+  
+  <!-- Text -->
+  <text x="64" y="110" fill="#8B5CF6" font-family="Arial, sans-serif" font-size="10" font-weight="700" text-anchor="middle">PORTALS MAP</text>
+</svg>

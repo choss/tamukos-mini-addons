@@ -1,4 +1,5 @@
 local addonName, addon = ...
+local LOGO_PATH = "Interface\\AddOns\\LoggerHeadDisplay\\Logo" -- place Logo.tga (128x128) in addon folder
 
 -- Addon initialization
 local LHD = CreateFrame("Frame", "LoggerHeadDisplayFrame")
@@ -100,9 +101,10 @@ end
 local function UpdateDisplay()
     if not displayFrame or not dataObject then return end
     
-    -- Update icon
-    if dataObject.icon then
-        displayFrame.icon:SetTexture(dataObject.icon)
+    -- Update icon (fallback to bundled logo if LDB icon missing)
+    local iconTexture = dataObject.icon or LOGO_PATH
+    if iconTexture then
+        displayFrame.icon:SetTexture(iconTexture)
         displayFrame.icon:Show()
     else
         displayFrame.icon:Hide()
