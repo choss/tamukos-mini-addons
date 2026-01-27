@@ -198,11 +198,8 @@ function BT:InitTrackables()
 			local amountStr = BT.AbbreviateAmount(amount, trackable.shortenAmount or 0)
 			
 			-- Color
-			local color = ITEM_QUALITY_COLORS[quality] or ITEM_QUALITY_COLORS[1]
-			if trackable.customColorToggle and trackable.customColor then
-				color = CreateColor(unpack(trackable.customColor))
-			end
-			
+		local colorTable = ITEM_QUALITY_COLORS[quality] or ITEM_QUALITY_COLORS[1]
+		local color = CreateColor(colorTable.r, colorTable.g, colorTable.b, 1)
 			-- Warning color if configured
 			if trackable.warnings and trackable.warnings.enabled then
 				if BT.CheckValue(amount, trackable.warnings.value, trackable.warnings.operator) then
