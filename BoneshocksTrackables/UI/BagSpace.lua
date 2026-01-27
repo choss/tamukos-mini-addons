@@ -4,8 +4,6 @@
 local addonName, BT = ...
 
 function BT:InitBagSpace()
-	if not self.db.modules.bagSpace.enabled then return end
-	
 	local row = CreateFrame("Frame", nil, BT.MainFrame)
 	row:SetSize(150, 16)
 	
@@ -55,4 +53,11 @@ function BT:InitBagSpace()
 	-- Add to main frame
 	BT.MainFrame:AddRow(row)
 	BT.BagSpaceRow = row
+	
+	-- Show/hide based on enabled state
+	if BT.db.modules.bagSpace.enabled then
+		row:Show()
+	else
+		row:Hide()
+	end
 end

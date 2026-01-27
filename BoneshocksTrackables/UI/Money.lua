@@ -4,8 +4,6 @@
 local addonName, BT = ...
 
 function BT:InitMoney()
-	if not self.db.modules.money.enabled then return end
-	
 	local row = CreateFrame("Frame", nil, BT.MainFrame)
 	row:SetSize(150, 16)
 	
@@ -76,4 +74,11 @@ function BT:InitMoney()
 	-- Add to main frame
 	BT.MainFrame:AddRow(row)
 	BT.MoneyRow = row
+	
+	-- Show/hide based on enabled state
+	if BT.db.modules.money.enabled then
+		row:Show()
+	else
+		row:Hide()
+	end
 end

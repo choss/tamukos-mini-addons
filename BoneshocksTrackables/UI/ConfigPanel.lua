@@ -54,6 +54,10 @@ function BT:CreateConfigPanel()
 					else
 						BT.BagSpaceRow:Hide()
 					end
+					-- Relayout the main frame
+					if BT.MainFrame then
+						BT.MainFrame:LayoutRows()
+					end
 				end
 			end)
 		Settings.CreateCheckbox(category, setting, tooltip)
@@ -76,6 +80,10 @@ function BT:CreateConfigPanel()
 					else
 						BT.MoneyRow:Hide()
 					end
+					-- Relayout the main frame
+					if BT.MainFrame then
+						BT.MainFrame:LayoutRows()
+					end
 				end
 			end)
 		Settings.CreateCheckbox(category, setting, tooltip)
@@ -84,7 +92,7 @@ function BT:CreateConfigPanel()
 	-- Money Textures
 	do
 		local variable = "BoneshocksTrackables_MoneyTextures"
-		local name = "  Show coin icons"
+		local name = "Show coin icons"
 		local tooltip = "Display coin textures next to values"
 		local defaultValue = true
 		
@@ -125,7 +133,7 @@ function BT:CreateConfigPanel()
 	-- Trackables Color
 	do
 		local variable = "BoneshocksTrackables_TrackablesColor"
-		local name = "  Color item/currency names by quality"
+		local name = "Color item/currency names by quality"
 		local tooltip = "Use quality colors for trackable names"
 		local defaultValue = true
 		
@@ -140,28 +148,10 @@ function BT:CreateConfigPanel()
 		Settings.CreateCheckbox(category, setting, tooltip)
 	end
 	
-	-- Show Amount
-	do
-		local variable = "BoneshocksTrackables_ShowAmount"
-		local name = "  Show currency/item amounts"
-		local tooltip = "Display the quantity of each currency/item"
-		local defaultValue = true
-		
-		local setting = Settings.RegisterProxySetting(category, variable, Settings.VarType.Boolean, name, defaultValue,
-			function() return BT.db.modules.trackables.showAmount end,
-			function(value)
-				BT.db.modules.trackables.showAmount = value
-				if BT.TrackablesContainer then
-					BT.TrackablesContainer:GetScript("OnEvent")(BT.TrackablesContainer, "CURRENCY_DISPLAY_UPDATE")
-				end
-			end)
-		Settings.CreateCheckbox(category, setting, tooltip)
-	end
-	
 	-- Show Name
 	do
 		local variable = "BoneshocksTrackables_ShowName"
-		local name = "  Show currency/item names"
+		local name = "Show currency/item names"
 		local tooltip = "Display the name of each currency/item"
 		local defaultValue = true
 		
@@ -179,7 +169,7 @@ function BT:CreateConfigPanel()
 	-- Color Amount
 	do
 		local variable = "BoneshocksTrackables_ColorAmount"
-		local name = "  Color amounts by quality"
+		local name = "Color amounts by quality"
 		local tooltip = "Use quality colors for currency/item amounts"
 		local defaultValue = true
 		
@@ -271,7 +261,7 @@ function BT:CreateConfigPanel()
 	
 	for _, exp in ipairs(classicExpansions) do
 		local variable = "BoneshocksTrackables_Expansion_" .. exp.id
-		local name = "  " .. exp.name
+		local name = exp.name
 		local tooltip = "Show " .. exp.name .. " currencies and items"
 		local defaultValue = true
 		
