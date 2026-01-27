@@ -194,6 +194,40 @@ function BT:CreateConfigPanel()
 		Settings.CreateCheckbox(category, setting, tooltip)
 	end
 	
+	-- Button to open Trackables Manager
+	do
+		local function OpenTrackablesManager()
+			if not BT.TrackablesManagerFrame then
+				BT.TrackablesManagerFrame = BT:CreateTrackablesManager(UIParent)
+				BT.TrackablesManagerFrame:SetPoint("CENTER")
+				BT.TrackablesManagerFrame:SetFrameStrata("DIALOG")
+				
+				-- Add background
+				local bg = BT.TrackablesManagerFrame:CreateTexture(nil, "BACKGROUND")
+				bg:SetAllPoints()
+				bg:SetColorTexture(0.05, 0.05, 0.05, 0.95)
+				
+				-- Add close button
+				local close = CreateFrame("Button", nil, BT.TrackablesManagerFrame, "UIPanelCloseButton")
+				close:SetPoint("TOPRIGHT", -5, -5)
+				
+				-- Make draggable
+				BT.TrackablesManagerFrame:SetMovable(true)
+				BT.TrackablesManagerFrame:EnableMouse(true)
+				BT.TrackablesManagerFrame:RegisterForDrag("LeftButton")
+				BT.TrackablesManagerFrame:SetScript("OnDragStart", function(self) self:StartMoving() end)
+				BT.TrackablesManagerFrame:SetScript("OnDragStop", function(self) self:StopMovingOrSizing() end)
+			end
+			BT.TrackablesManagerFrame:Show()
+		end
+		
+		local initializer = Settings.CreateElementInitializer("SettingButtonControlTemplate", {
+			buttonText = "Manage Individual Currencies",
+			buttonClick = OpenTrackablesManager,
+		})
+		layout:AddInitializer(initializer)
+	end
+	
 	-- === EXPANSION FILTERS ===
 	-- Add a header for expansions
 	layout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Expansions"))

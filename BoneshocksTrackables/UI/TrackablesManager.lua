@@ -115,8 +115,13 @@ function BT:CreateTrackablesManager(parent)
 					BT.db.hiddenTrackables = {}
 				end
 				
-				cb:SetChecked(not (trackable.hide or BT.db.hiddenTrackables[trackable.id]))
+				-- Store trackableID first before setting up the click handler
 				cb.trackableID = trackable.id
+				
+				-- Set checked state based on whether it's hidden
+				local isHidden = trackable.hide or BT.db.hiddenTrackables[trackable.id]
+				cb:SetChecked(not isHidden)
+				
 				cb:SetScript("OnClick", function(self)
 					local checked = self:GetChecked()
 					-- Ensure hiddenTrackables table exists
@@ -127,12 +132,11 @@ function BT:CreateTrackablesManager(parent)
 					if checked then
 						-- Show this trackable
 						BT.db.hiddenTrackables[self.trackableID] = nil
-						print("|cff00ff00Showing currency/item ID:|r " .. self.trackableID)
 					else
 						-- Hide this trackable
 						BT.db.hiddenTrackables[self.trackableID] = true
-						print("|cffff0000Hiding currency/item ID:|r " .. self.trackableID)
 					end
+					
 					-- Update display
 					if BT.TrackablesContainer then
 						BT.TrackablesContainer:GetScript("OnEvent")(BT.TrackablesContainer, "ZONE_CHANGED")
