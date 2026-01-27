@@ -115,11 +115,17 @@ function BT:CreateTrackablesManager(parent)
 					BT.db.hiddenTrackables = {}
 				end
 				
-				-- Store trackableID first before setting up the click handler
-				cb.trackableID = trackable.id
+				-- Store trackable key (type:id) before setting up the click handler
+				local trackableKey = trackable.type .. ":" .. trackable.id
+				cb.trackableKey = trackableKey
 				
-				-- Set checked state based on whether it's hidden
-				local isHidden = trackable.hide or BT.db.hiddenTrackables[trackable.id]
+				-- Set checked state: user preference overrides default hide
+				local isHidden
+				if BT.db.hiddenTrackables[trackableKey] ~= nil then
+					isHidden = BT.db.hiddenTrackables[trackableKey]
+				else
+					isHidden = trackable.hide or false
+				end
 				cb:SetChecked(not isHidden)
 				
 				cb:SetScript("OnClick", function(self)
@@ -130,11 +136,11 @@ function BT:CreateTrackablesManager(parent)
 					end
 					
 					if checked then
-						-- Show this trackable
-						BT.db.hiddenTrackables[self.trackableID] = nil
+						-- Show this trackable (explicitly set to false)
+						BT.db.hiddenTrackables[self.trackableKey] = false
 					else
 						-- Hide this trackable
-						BT.db.hiddenTrackables[self.trackableID] = true
+						BT.db.hiddenTrackables[self.trackableKey] = true
 					end
 					
 					-- Update display

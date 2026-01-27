@@ -23,9 +23,19 @@ function BT:InitTrackables()
 		for _, trackable in ipairs(BT.allTrackables) do
 			local show = false
 			
-			-- Skip if marked as hidden (in data or by user)
-			local userHidden = BT.db.hiddenTrackables and BT.db.hiddenTrackables[trackable.id]
-			if trackable.hide or userHidden then
+			-- Check if user has explicitly hidden this trackable
+			local trackableKey = trackable.type .. ":" .. trackable.id
+			local userHidden = BT.db.hiddenTrackables and BT.db.hiddenTrackables[trackableKey]
+			
+			-- Skip if hidden: user preference overrides default hide setting
+			local isHidden = false
+			if userHidden ~= nil then
+				isHidden = userHidden
+			else
+				isHidden = trackable.hide or false
+			end
+			
+			if isHidden then
 				-- Skip this trackable entirely
 			-- Check if expansion is enabled
 			elseif BT.db.modules.trackables.expansions[trackable.expansion] then
