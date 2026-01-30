@@ -7,7 +7,7 @@ function BT:InitMainFrame()
 	local frame = CreateFrame("Frame", "BoneshocksTrackablesFrame", UIParent)
 	frame:SetSize(200, 100)  -- Will auto-resize based on content
 	frame:SetMovable(true)
-	frame:SetClampedToScreen(true)
+	frame:SetClampedToScreen(false)
 	frame:EnableMouse(true)
 	frame:RegisterForDrag("LeftButton")
 	
@@ -26,7 +26,7 @@ function BT:InitMainFrame()
 	
 	frame:SetScript("OnDragStop", function(self)
 		self:StopMovingOrSizing()
-		-- Save position
+		-- Save position (top-left corner)
 		local point, _, relativePoint, x, y = self:GetPoint()
 		BT.db.frame.x = x
 		BT.db.frame.y = y
@@ -34,7 +34,7 @@ function BT:InitMainFrame()
 	
 	-- Restore saved position or center
 	if BT.db.frame.x and BT.db.frame.y then
-		frame:SetPoint("CENTER", UIParent, "CENTER", BT.db.frame.x, BT.db.frame.y)
+		frame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", BT.db.frame.x, BT.db.frame.y)
 	else
 		frame:SetPoint("CENTER")
 	end

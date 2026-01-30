@@ -13,7 +13,7 @@ function BT:CreateConfigPanel()
 	local category, layout = Settings.RegisterVerticalLayoutCategory("Boneshock's Trackables")
 	
 	-- Title with instructions
-	local titleText = "Boneshock's Trackables\n\nUse /btmanage to show/hide individual currencies"
+	local titleText = "Boneshock's Trackables\n\nUse /btmanage to show/hide individual currencies\nUse /btreset to reset frame position"
 	
 	-- Frame Lock
 	do
@@ -286,37 +286,54 @@ end
 SLASH_BONESHOCKTRACKABLES1 = "/bt"
 SLASH_BONESHOCKTRACKABLES2 = "/boneshock"
 SlashCmdList["BONESHOCKTRACKABLES"] = function(msg)
-	if BT.SettingsCategory then
-		Settings.OpenToCategory(BT.SettingsCategory:GetID())
+	msg = msg:lower():trim()
+	
+	if msg == "config" then
+		-- Open config panel
+		if BT.SettingsCategory then
+			Settings.OpenToCategory(BT.SettingsCategory:GetID())
+		else
+			print("|cffff0000Boneshock's Trackables config panel not loaded yet. Please /reload and try again.|r")
+		end
+	elseif msg == "manage" then
+		-- Open trackables manager
+		if not BT.TrackablesManagerFrame then
+			BT.TrackablesManagerFrame = BT:CreateTrackablesManager(UIParent)
+			BT.TrackablesManagerFrame:SetPoint("CENTER")
+			BT.TrackablesManagerFrame:SetFrameStrata("DIALOG")
+			
+			-- Add background
+			local bg = BT.TrackablesManagerFrame:CreateTexture(nil, "BACKGROUND")
+			bg:SetAllPoints()
+			bg:SetColorTexture(0.05, 0.05, 0.05, 0.95)
+			
+			-- Add close button
+			local close = CreateFrame("Button", nil, BT.TrackablesManagerFrame, "UIPanelCloseButton")
+			close:SetPoint("TOPRIGHT", -5, -5)
+			
+			-- Make draggable
+			BT.TrackablesManagerFrame:SetMovable(true)
+			BT.TrackablesManagerFrame:EnableMouse(true)
+			BT.TrackablesManagerFrame:RegisterForDrag("LeftButton")
+			BT.TrackablesManagerFrame:SetScript("OnDragStart", function(self) self:StartMoving() end)
+			BT.TrackablesManagerFrame:SetScript("OnDragStop", function(self) self:StopMovingOrSizing() end)
+		end
+		BT.TrackablesManagerFrame:Show()
+	elseif msg == "reset" then
+		-- Reset frame position
+		BT.db.frame.x = nil
+		BT.db.frame.y = nil
+		
+		if BT.MainFrame then
+			BT.MainFrame:ClearAllPoints()
+			BT.MainFrame:SetPoint("CENTER")
+			print("|cff00ff00Boneshock's Trackables position reset to center.|r")
+		end
 	else
-		print("|cffff0000Boneshock's Trackables config panel not loaded yet. Please /reload and try again.|r")
+		-- Show help
+		print("|cff00ff00Boneshock's Trackables commands:|r")
+		print("|cffaaaaaa/bt config|r - Open settings")
+		print("|cffaaaaaa/bt manage|r - Manage individual currencies")
+		print("|cffaaaaaa/bt reset|r - Reset frame position")
 	end
-end
-
--- Slash command for trackables manager
-SLASH_BTMANAGE1 = "/btmanage"
-SlashCmdList["BTMANAGE"] = function(msg)
-	if not BT.TrackablesManagerFrame then
-		BT.TrackablesManagerFrame = BT:CreateTrackablesManager(UIParent)
-		BT.TrackablesManagerFrame:SetPoint("CENTER")
-		BT.TrackablesManagerFrame:SetFrameStrata("DIALOG")
-		
-		-- Add background
-		local bg = BT.TrackablesManagerFrame:CreateTexture(nil, "BACKGROUND")
-		bg:SetAllPoints()
-		bg:SetColorTexture(0.05, 0.05, 0.05, 0.95)
-		
-		-- Add close button
-		local close = CreateFrame("Button", nil, BT.TrackablesManagerFrame, "UIPanelCloseButton")
-		close:SetPoint("TOPRIGHT", -5, -5)
-		
-		-- Make draggable
-		BT.TrackablesManagerFrame:SetMovable(true)
-		BT.TrackablesManagerFrame:EnableMouse(true)
-		BT.TrackablesManagerFrame:RegisterForDrag("LeftButton")
-		BT.TrackablesManagerFrame:SetScript("OnDragStart", function(self) self:StartMoving() end)
-		BT.TrackablesManagerFrame:SetScript("OnDragStop", function(self) self:StopMovingOrSizing() end)
-	end
-	BT.TrackablesManagerFrame:Show()
-	print("|cff00ff00Showing trackables manager. Search and check/uncheck currencies to show/hide them.|r")
 end
