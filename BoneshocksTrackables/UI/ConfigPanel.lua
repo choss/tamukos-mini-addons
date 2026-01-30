@@ -12,10 +12,7 @@ function BT:CreateConfigPanel()
 	
 	local category, layout = Settings.RegisterVerticalLayoutCategory("Boneshock's Trackables")
 	
-	-- Title with instructions
-	local titleText = "Boneshock's Trackables\n\nUse /btmanage to show/hide individual currencies\nUse /btreset to reset frame position"
-	
-	-- Frame Lock
+
 	do
 		local variable = "BoneshocksTrackables_FrameLock"
 		local name = "Lock frame position"
@@ -308,7 +305,9 @@ SLASH_BONESHOCKTRACKABLES1 = "/bt"
 SLASH_BONESHOCKTRACKABLES2 = "/boneshock"
 SlashCmdList["BONESHOCKTRACKABLES"] = function(msg)
 	msg = msg:lower():trim()
-	
+	if msg == nil or msg == "" then
+		msg = "config"
+	end
 	if msg == "config" then
 		-- Open config panel
 		if BT.SettingsCategory then
@@ -350,7 +349,7 @@ SlashCmdList["BONESHOCKTRACKABLES"] = function(msg)
 			BT.MainFrame:SetPoint("CENTER")
 			print("|cff00ff00Boneshock's Trackables position reset to center.|r")
 		end
-	else
+	elseif msg == "help" then
 		-- Show help
 		print("|cff00ff00Boneshock's Trackables commands:|r")
 		print("|cffaaaaaa/bt config|r - Open settings")
