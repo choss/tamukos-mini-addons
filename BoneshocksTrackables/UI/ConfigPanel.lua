@@ -37,6 +37,27 @@ function BT:CreateConfigPanel()
 		Settings.CreateCheckbox(category, setting, tooltip)
 	end
 	
+	-- Reset Position Button
+	do
+		local function ResetPosition()
+			-- Reset position to center
+			BT.db.frame.x = nil
+			BT.db.frame.y = nil
+			
+			if BT.MainFrame then
+				BT.MainFrame:ClearAllPoints()
+				BT.MainFrame:SetPoint("CENTER")
+				print("|cff00ff00Boneshock's Trackables position reset to center.|r")
+			end
+		end
+		
+		local initializer = Settings.CreateElementInitializer("SettingButtonControlTemplate", {
+			buttonText = "Reset Position",
+			buttonClick = ResetPosition,
+		})
+		layout:AddInitializer(initializer)
+	end
+	
 	-- Bag Space Module
 	do
 		local variable = "BoneshocksTrackables_BagSpace"
