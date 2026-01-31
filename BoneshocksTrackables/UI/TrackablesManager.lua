@@ -3,6 +3,21 @@
 
 local addonName, BT = ...
 
+local expansionNames = {
+	[10] = "The War Within",
+	[9] = "Dragonflight",
+	[8] = "Shadowlands",
+	[7] = "Battle for Azeroth",
+	[6] = "Legion",
+	[5] = "Warlords of Draenor",
+	[4] = "Mists of Pandaria",
+	[3] = "Cataclysm",
+	[2] = "Wrath of the Lich King",
+	[1] = "The Burning Crusade",
+	[0] = "Classic",
+	[-1] = "Other",
+}
+
 function BT:CreateTrackablesManager(parent)
 	local frame = CreateFrame("Frame", nil, parent)
 	frame:SetSize(580, 400)
@@ -95,8 +110,10 @@ function BT:CreateTrackablesManager(parent)
 				name = C_Item.GetItemNameByID(trackable.id) or ("Item " .. trackable.id)
 			end
 			
+			local expName = expansionNames[trackable.expansion] or "Unknown"
+
 			-- Filter by search
-			if searchText == "" or name:lower():find(searchText, 1, true) then
+			if searchText == "" or name:lower():find(searchText, 1, true) or expName:lower():find(searchText, 1, true) then
 				visibleCount = visibleCount + 1
 				
 				-- Create checkbox if needed
@@ -108,7 +125,7 @@ function BT:CreateTrackablesManager(parent)
 				
 				local cb = frame.checkboxes[visibleCount]
 				cb:SetPoint("TOPLEFT", content, "TOPLEFT", 5, yOffset)
-				cb.Text:SetText(string.format("%s (ID: %d)", name, trackable.id))
+				cb.Text:SetText(string.format("%s - %s", name, expName))
 				
 				-- Ensure hiddenTrackables table exists
 				if not BT.db.hiddenTrackables then

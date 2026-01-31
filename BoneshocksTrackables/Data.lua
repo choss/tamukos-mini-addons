@@ -12,6 +12,7 @@ BT.covenantMaps = {1707,1708,1698,1701,1702,1703,1699,1700} -- K,NL,NF,V
 -- Main trackables table
 BT.trackables = {
     [10] = {
+        
         -- ===THE WAR WITHIN===
         -- currencies:
         {--Valorstones
@@ -127,6 +128,13 @@ BT.trackables = {
             hideZero = true,
             --warnings = {enabled=false, value=10, operator=3}, --1== 2~= 3> 4< 5>= 6<=
         },  
+        {--Twilight's Blade Insignia
+            id = 3319,
+            type = "currency",
+            uiMapIDs = {241}, -- Twilight Highlands
+            parentMapIDs = {"r2274"}, -- Khaz Algar (TWW)
+            zones = "Twilight Highlands",
+        },
         
         -- items:
         {--Coffer Key Shard
@@ -273,6 +281,7 @@ BT.trackables = {
             id = 200093,
             type = "item",
             zones = "Maruukai",
+            uiMapIDs = {2023},
             tocversion = 100002,
             warnings = {enabled=true, value=1, operator=5}
         },
@@ -379,6 +388,7 @@ BT.trackables = {
             id = 1820,
             type = "currency",
             zones = "Revendreth",
+            uiMapIDs = {1525},
         },
         {--Stygia
             id = 1767,
@@ -433,6 +443,7 @@ BT.trackables = {
             id = 1977,
             type = "currency",
             zones = "Keeper's Respite",
+            uiMapIDs = {1961},
         },
         {--Cyphers of the First Ones
             id = 1979,
@@ -453,6 +464,7 @@ BT.trackables = {
         {--Sandworn Relic
             id = 190189,
             type = "item",
+            uiMapIDs = {1970},
             zones = "Pilgrim's Grace"
         },
         {--Genesis Mote
@@ -558,11 +570,13 @@ BT.trackables = {
         {--Seafarer's Dubloon
             id = 1710,
             type = "currency",
+            uiMapIDs = {862, 895},
             zones = "Port of Zandalar, Boralus Harbor",
             always = false,
         },
         {--Honorbound Service Medal
             id = 1716,
+            uiMapIDs = {862, 62, 14},
             type = "currency",
             zones = "Port of Zandalar, Darkshore, Arathi Highlands",
             faction = "horde",
@@ -570,6 +584,7 @@ BT.trackables = {
         },
         {--7th Legion Service Medal
             id = 1717,
+            uiMapIDs = {895, 62, 14},
             type = "currency",
             zones = "Boralus Harbor, Darkshore, Arathi Highlands",
             faction = "alliance",
@@ -577,6 +592,7 @@ BT.trackables = {
         },
         {--War Resources
             id = 1560,
+            uiMapIDs = {862, 895, 62, 14},
             type = "currency",
             zones = "The Banshee's Wail, Wind's Redemption, Darkshore, Arathi Highlands, The Maelstrom Mercantile,Tradewinds Market",
         },
@@ -588,23 +604,26 @@ BT.trackables = {
         {--Seal of Wartorn Fate
             id = 1580,
             type = "currency",
-            zones = "The Maelstrom Mercantile, Tradewinds Market",
+            uiMapIDs = {862, 895},
         },
         {--Titan Residuum
             id = 1718,
             type = "currency",
             zones = "The Maelstrom Mercantile, Vault of Kings, Tradewinds Market",
+            uiMapIDs = {862, 895},
         },
         --Nazjatar stuff start
         {--Prismatic Manapearl
             id = 1721,
             type = "currency",
             zones = "Nazjatar, Mardivas's Laboratory",
+            uiMapIDs = {1355},
         },
         {--Nazjatar Battle Commendation
             id = 168802,
             type = "item",
             zones = "Newhome, Mezzamere",
+            uiMapIDs = {1355},
         },
         --Nazjatar stuff end
         --Mechagon start
@@ -612,26 +631,31 @@ BT.trackables = {
             id = 168832,
             type = "item",
             zones = "Mechagon",
+            uiMapIDs = {1462},
         },
         {--S.P.A.R.E. Crate
             id = 169610,
             type = "item",
             zones = "Mechagon",
+            uiMapIDs = {1462},
         },
         {--Spare Parts
             id = 166846,
             type = "item",
             zones = "Mechagon",
+            uiMapIDs = {1462},
         },
         {--Energy Cell
             id = 166970,
             type = "item",
             zones = "Mechagon",
+            uiMapIDs = {1462},
         },
         {--Chain Ignitercoil
             id = 168327,
             type = "item",
             zones = "Mechagon",
+            uiMapIDs = {1462},
         },
         --Mechagon end
         --Visions of N'zoth start
@@ -777,6 +801,7 @@ BT.trackables = {
         {-- Nethershard
             id = 1226,
             type = "currency",
+            uiMapIDs = {646},
             zones = "Deliverance Point, Broken Shore",
         },
         {--Veiled Argunite
@@ -788,12 +813,13 @@ BT.trackables = {
         {--Ancient Mana
             id = 1155,
             type = "currency",
-            zones = "Suramar",
+            uiMapIDs = {680},
         },
         {--Legiofall War Supplies
             id = 1342,
             type = "currency",
             zones = "Broken Shore, Deliverance Point",
+            uiMapIDs = {646},
         },
         {--Sightless Eye
             id = 1149,
@@ -818,6 +844,7 @@ BT.trackables = {
     [5] = {
         -- ===WARLORDS OF DRAENOR===
         {--Apexis Cystal
+            uiMapIDs = {534},
             id = 823,
             type = "currency",
             zones = "Tanaan Jungle",
@@ -838,11 +865,13 @@ BT.trackables = {
             id = 994,
             type = "currency",
             zones = "Warspear, Stormshield",
+            uiMapIDs = {624, 622},
         },
         {--Seal of Inevitable Fate
             id = 1129,
             type = "currency",
             zones = "Warspear, Stormshield",
+            uiMapIDs = {624, 622},
         },
     },
     [4] = {
@@ -851,11 +880,13 @@ BT.trackables = {
             id = 789,
             type = "currency",
             zones = "Timeless Isle",
+            uiMapIDs = {554},
         },
         {--Timeless Coin
             id = 777,
             type = "currency",
             zones = "Timeless Isle",
+            uiMapIDs = {554},
         },
         {--Skyshard
             id = 86547,
@@ -867,6 +898,12 @@ BT.trackables = {
             id = 697,
             type = "currency",
             uiMapIDs = {504},
+        },
+        {--Ironpaw Token
+            id = 402,
+            type = "currency",
+            zones = "The Halfhill Market",
+            uiMapIDs = {376},
         },
         {--Giant Dinosaur Bone
             id = 94288,
@@ -901,17 +938,13 @@ BT.trackables = {
             id = 81,
             type = "currency",
             zones = "Orgrimmar, Undercity, Thunder Bluff, Stormwind City, Darnassus, City of Ironforge, Argent Tournament Grounds",
-            uiMapIDs = {125,}
-        },
-        {--Ironpaw Token
-            id = 402,
-            type = "currency",
-            zones = "The Halfhill Market",
+            uiMapIDs = {125, 376},
         },
         {--Darkmoon Prize Ticket
             id = 515,
             type = "currency",
             zones = "Darkmoon Island",
+            uiMapIDs = {407},
         },
         {--Darkmoon Ride Ticket
             id = 81055,
