@@ -136,6 +136,12 @@ function BT:CreateConfigPanel()
 			function() return BT.db.modules.trackables.enabled end,
 			function(value)
 				BT.db.modules.trackables.enabled = value
+				
+				-- Initialize if enabling for the first time
+				if value and not BT.TrackablesContainer then
+					BT:InitTrackables()
+				end
+				
 				if BT.TrackablesContainer then
 					if value then
 						BT.TrackablesContainer:Show()
