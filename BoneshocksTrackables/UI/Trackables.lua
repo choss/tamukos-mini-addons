@@ -55,7 +55,7 @@ function BT:InitTrackables()
 					-- Zone text match
 					if trackable.zones then
 						local zones = trackable.zones:gsub("%s+", ""):lower()
-						if zones:find(zoneText, 1, true) or zones:find(minimapText, 1, true) then
+						if (zoneText ~= "" and zones:find(zoneText, 1, true)) or (minimapText ~= "" and zones:find(minimapText, 1, true)) then
 							zoneMatch = true
 						end
 					end
@@ -108,7 +108,7 @@ function BT:InitTrackables()
 					end
 					if trackable.excludeByZoneText then
 						local excludeZones = trackable.excludeByZoneText:gsub("%s+", ""):lower()
-						if excludeZones:find(zoneText, 1, true) or excludeZones:find(minimapText, 1, true) then
+						if (zoneText ~= "" and excludeZones:find(zoneText, 1, true)) or (minimapText ~= "" and excludeZones:find(minimapText, 1, true)) then
 							zoneMatch = false
 						end
 					end
@@ -242,6 +242,11 @@ function BT:InitTrackables()
 		
 		-- Resize container
 		container:SetSize(maxWidth, math.abs(yOffset))
+		
+		-- Notify parent to update layout
+		if BT.MainFrame and BT.MainFrame.LayoutRows then
+			BT.MainFrame:LayoutRows()
+		end
 	end
 	
 	-- Events
@@ -251,20 +256,23 @@ function BT:InitTrackables()
 	container:RegisterEvent("PLAYER_ENTERING_WORLD")
 	container:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
 	container:RegisterEvent("BAG_UPDATE")
-	container:SetScript("OnEvent", Update)
 	
-	-- Throttled updates for bag events
-	local throttle = 0
-	container:SetScript("OnUpdate", function(self, elapsed)
-		throttle = throttle - elapsed
-		if throttle <= 0 then
-			throttle = 0.2
-			Update()
+	-- Throttled update system
+	local updatePending = false
+	local function RequestUpdate()
+		if not updatePending then
+			updatePending = true
+			C_Timer.After(0.2, function()
+				Update()
+				updatePending = false
+			end)
 		end
-	end)
+	end
+	
+	container:SetScript("OnEvent", RequestUpdate)
 	
 	-- Initial update
-	Update()
+	RequestUpdate()
 	
 	-- Add to main frame
 	BT.MainFrame:AddRow(container)
