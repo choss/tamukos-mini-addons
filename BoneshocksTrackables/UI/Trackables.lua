@@ -232,7 +232,7 @@ function BT:InitTrackables()
 					end
 				end
 				if #parts > 0 then
-					local sep = " | "
+					local sep = "||"
 					local displayStr = table.concat(parts, sep)
 					if cfg.showName then
 						displayStr = displayStr .. " " .. item.trackables[1].slashGroup
