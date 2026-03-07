@@ -132,118 +132,157 @@ function BT:InitTrackables()
 		return active
 	end
 	
-	-- Update trackables display
-	local function Update()
-		local activeTrackables = GetActiveTrackables()
-		
-		-- Ensure we have enough rows
-		while #container.rows < #activeTrackables do
+	-- Helper: resolve color for a trackable (custom > quality)
+	local function GetTrackableColor(trackable, quality)
+		if trackable.customColorToggle and trackable.customColor then
+			local c = trackable.customColor
+			return CreateColor(c[1], c[2], c[3], c[4] or 1)
+		end
+		local ct = ITEM_QUALITY_COLORS[quality] or ITEM_QUALITY_COLORS[1]
+		return CreateColor(ct.r, ct.g, ct.b, 1)
+	end
+
+	-- Helper: fetch amount/name/icon/quality for any trackable
+	local function GetTrackableData(trackable)
+		if trackable.type == "currency" then
+			local info = C_CurrencyInfo.GetCurrencyInfo(trackable.id)
+			if info then
+				return info.quantity, info.name, info.iconFileID, info.quality or 1
+			end
+		elseif trackable.type == "item" then
+			local amt = C_Item.GetItemCount(trackable.id, true, true, true, true) or 0
+			local item = Item:CreateFromItemID(trackable.id)
+			return amt, item:GetItemName() or "Unknown", item:GetItemIcon() or 134400, item:GetItemQuality() or 1
+		end
+	end
+
+	-- Helper: create or return the display row at index
+	local function EnsureRow(idx)
+		if not container.rows[idx] then
 			local row = CreateFrame("Frame", nil, container)
 			row:SetSize(200, 14)
-			
 			local icon = row:CreateTexture(nil, "OVERLAY")
 			icon:SetSize(12, 12)
 			icon:SetPoint("LEFT")
 			row.icon = icon
-			
 			local text = row:CreateFontString(nil, "OVERLAY")
 			text:SetFont(STANDARD_TEXT_FONT, 11, "OUTLINE")
 			text:SetPoint("LEFT", icon, "RIGHT", 3, 0)
 			text:SetJustifyH("LEFT")
 			row.text = text
-			
-			table.insert(container.rows, row)
+			container.rows[idx] = row
 		end
-		
+		return container.rows[idx]
+	end
+
+	-- Update trackables display
+	local function Update()
+		local activeTrackables = GetActiveTrackables()
+		local cfg = BT.db.modules.trackables
+
+		-- Build display items: group consecutive slashGroup entries when option is on
+		local displayItems = {}
+		local i = 1
+		while i <= #activeTrackables do
+			local t = activeTrackables[i]
+			if cfg.mergeSlashGroups and t.slashGroup then
+				local group = {t}
+				local j = i + 1
+				while j <= #activeTrackables and activeTrackables[j].slashGroup == t.slashGroup do
+					table.insert(group, activeTrackables[j])
+					j = j + 1
+				end
+				table.insert(displayItems, {isGroup = true, trackables = group})
+				i = j
+			else
+				table.insert(displayItems, {isGroup = false, trackable = t})
+				i = i + 1
+			end
+		end
+
+		-- Ensure enough rows exist
+		for idx = 1, #displayItems do EnsureRow(idx) end
+
 		-- Hide extra rows
-		for i = #activeTrackables + 1, #container.rows do
-			container.rows[i]:Hide()
+		for idx = #displayItems + 1, #container.rows do
+			container.rows[idx]:Hide()
 		end
-		
-		-- Update visible rows
+
+		-- Render rows
 		local yOffset = 0
 		local maxWidth = 0
-		
-		for i, trackable in ipairs(activeTrackables) do
-			local row = container.rows[i]
-			
-			-- Get current amount
-			local amount, name, icon, quality
-			if trackable.type == "currency" then
-				local info = C_CurrencyInfo.GetCurrencyInfo(trackable.id)
-				if info then
-					amount = info.quantity
-					name = info.name
-					icon = info.iconFileID
-					quality = info.quality or 1
+
+		for idx, item in ipairs(displayItems) do
+			local row = container.rows[idx]
+
+			if item.isGroup then
+				-- Slash-separated group (e.g. Champion/Hero/Myth Dawncrest)
+				local parts = {}
+				local firstIcon
+				for _, gt in ipairs(item.trackables) do
+					local amount, _, icon, quality = GetTrackableData(gt)
+					if amount then
+						firstIcon = firstIcon or icon
+						local amtStr = BT.AbbreviateAmount(amount, gt.shortenAmount or 0)
+						local color = GetTrackableColor(gt, quality)
+						if gt.warnings and gt.warnings.enabled and BT.CheckValue(amount, gt.warnings.value, gt.warnings.operator) then
+							color = CreateColor(1, 0, 0, 1)
+						end
+						table.insert(parts, cfg.colorAmount and color:WrapTextInColorCode(amtStr) or amtStr)
+					end
 				end
-			elseif trackable.type == "item" then
-				amount = C_Item.GetItemCount(trackable.id, true, true, true, true) or 0
-				local item = Item:CreateFromItemID(trackable.id)
-				name = item:GetItemName() or "Unknown"
-				icon = item:GetItemIcon() or 134400
-				quality = item:GetItemQuality() or 1
-			end
-			
-			-- Skip if hideZero and amount is 0
-			local skipRow = false
-			if trackable.hideZero and amount == 0 then
-				row:Hide()
-				skipRow = true
-			end
-			
-			if not skipRow then
-			
-			-- Format amount
-			local amountStr = BT.AbbreviateAmount(amount, trackable.shortenAmount or 0)
-			
-			-- Color
-		local colorTable = ITEM_QUALITY_COLORS[quality] or ITEM_QUALITY_COLORS[1]
-		local color = CreateColor(colorTable.r, colorTable.g, colorTable.b, 1)
-			-- Warning color if configured
-			if trackable.warnings and trackable.warnings.enabled then
-				if BT.CheckValue(amount, trackable.warnings.value, trackable.warnings.operator) then
-					color = CreateColor(1, 0, 0, 1)
-				end
-			end
-			
-			-- Build text
-			local cfg = BT.db.modules.trackables
-			local displayParts = {}
-			if cfg.showAmount then
-				if cfg.colorAmount then
-					table.insert(displayParts, color:WrapTextInColorCode(amountStr))
+				if #parts > 0 then
+					local sep = cfg.colorAmount and "|cffffffff||r" or "|"
+					local displayStr = table.concat(parts, sep)
+					if cfg.showName then
+						displayStr = displayStr .. " " .. item.trackables[1].slashGroup
+					end
+					row.text:SetText(displayStr)
+					row.icon:SetTexture(firstIcon)
+					row:ClearAllPoints()
+					row:SetPoint("TOPLEFT", container, "TOPLEFT", 0, yOffset)
+					yOffset = yOffset - 14
+					row:SetWidth(12 + 3 + row.text:GetStringWidth() + 2)
+					maxWidth = math.max(maxWidth, row:GetWidth())
+					row:Show()
 				else
-					table.insert(displayParts, amountStr)
+					row:Hide()
 				end
-			end
-			if cfg.showName then
-				if cfg.colorName then
-					table.insert(displayParts, color:WrapTextInColorCode(name))
+			else
+				-- Single trackable row
+				local trackable = item.trackable
+				local amount, name, icon, quality = GetTrackableData(trackable)
+				if trackable.hideZero and (not amount or amount == 0) then
+					row:Hide()
 				else
-					table.insert(displayParts, name)
+					local amountStr = BT.AbbreviateAmount(amount or 0, trackable.shortenAmount or 0)
+					local color = GetTrackableColor(trackable, quality or 1)
+					if trackable.warnings and trackable.warnings.enabled then
+						if BT.CheckValue(amount, trackable.warnings.value, trackable.warnings.operator) then
+							color = CreateColor(1, 0, 0, 1)
+						end
+					end
+					local displayParts = {}
+					if cfg.showAmount then
+						table.insert(displayParts, cfg.colorAmount and color:WrapTextInColorCode(amountStr) or amountStr)
+					end
+					if cfg.showName then
+						table.insert(displayParts, cfg.colorName and color:WrapTextInColorCode(name) or name)
+					end
+					row.text:SetText(table.concat(displayParts, " "))
+					row.icon:SetTexture(icon)
+					row:ClearAllPoints()
+					row:SetPoint("TOPLEFT", container, "TOPLEFT", 0, yOffset)
+					yOffset = yOffset - 14
+					row:SetWidth(12 + 3 + row.text:GetStringWidth() + 2)
+					maxWidth = math.max(maxWidth, row:GetWidth())
+					row:Show()
 				end
-			end
-			
-			row.text:SetText(table.concat(displayParts, " "))
-			row.icon:SetTexture(icon)
-			
-			-- Position
-			row:ClearAllPoints()
-			row:SetPoint("TOPLEFT", container, "TOPLEFT", 0, yOffset)
-			yOffset = yOffset - 14
-			
-			row:SetWidth(12 + 3 + row.text:GetStringWidth() + 2)
-			maxWidth = math.max(maxWidth, row:GetWidth())
-			
-			row:Show()
 			end
 		end
-		
+
 		-- Resize container
 		container:SetSize(maxWidth, math.abs(yOffset))
-		
-		-- Notify parent to update layout
 		if BT.MainFrame and BT.MainFrame.LayoutRows then
 			BT.MainFrame:LayoutRows()
 		end

@@ -48,6 +48,7 @@ BT.defaults = {
 			colorAmount = true,
 			colorName = true,
 			mergeExtraInfo = false,  -- Merge extra into amount number
+			mergeSlashGroups = true, -- Merge slash-grouped currencies (e.g. Dawncrests) into one row
 		},
 	},
 	customTrackables = {},  -- User-added trackables

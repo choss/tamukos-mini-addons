@@ -207,7 +207,25 @@ function BT:CreateConfigPanel()
 			end)
 		Settings.CreateCheckbox(category, setting, tooltip)
 	end
-	
+
+	-- Merge slash groups (e.g. Dawncrests into one row)
+	do
+		local variable = "BoneshocksTrackables_MergeSlashGroups"
+		local name = "  Merge crests into one row (A/B/C)"
+		local tooltip = "Display grouped currencies (e.g. Dawncrests) on a single row separated by slashes"
+		local defaultValue = true
+
+		local setting = Settings.RegisterProxySetting(category, variable, Settings.VarType.Boolean, name, defaultValue,
+			function() return BT.db.modules.trackables.mergeSlashGroups end,
+			function(value)
+				BT.db.modules.trackables.mergeSlashGroups = value
+				if BT.TrackablesContainer then
+					BT.TrackablesContainer:GetScript("OnEvent")(BT.TrackablesContainer, "CURRENCY_DISPLAY_UPDATE")
+				end
+			end)
+		Settings.CreateCheckbox(category, setting, tooltip)
+	end
+
 	-- Button to open Trackables Manager
 	do
 		local function OpenTrackablesManager()

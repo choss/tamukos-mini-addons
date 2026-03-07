@@ -20,40 +20,45 @@ BT.trackables = {
             id = 3383,
             type = "currency",
             priority = 101,
-            -- customColorToggle = true,
-            -- customColor = {0,0.8,1,1}, -- TBD
+            customColorToggle = true,
+            customColor = {0.12, 1, 0, 1}, -- green
+            slashGroup = "Dawncrest",
             parentMapIDs = {"r2537"},
         },
         {--Veteran Dawncrest
             id = 3342,
             type = "currency",
             priority = 102,
-            -- customColorToggle = true,
-            -- customColor = {0,0.44,0.87,1}, -- TBD
+            customColorToggle = true,
+            customColor = {0, 0.44, 0.87, 1}, -- blue
+            slashGroup = "Dawncrest",
             parentMapIDs = {"r2537"},
         },
         {--Champion Dawncrest
             id = 3343,
             type = "currency",
             priority = 103,
-            -- customColorToggle = true,
-            -- customColor = {0.64,0.21,0.93,1}, -- TBD
+            customColorToggle = true,
+            customColor = {0.64, 0.21, 0.93, 1}, -- purple
+            slashGroup = "Dawncrest",
             parentMapIDs = {"r2537"},
         },
         {--Hero Dawncrest
             id = 3346,
             type = "currency",
             priority = 104,
-            -- customColorToggle = true,
-            -- customColor = {1,0.5,0,1}, -- TBD
+            customColorToggle = true,
+            customColor = {1, 0.5, 0, 1}, -- orange
+            slashGroup = "Dawncrest",
             parentMapIDs = {"r2537"},
         },
         {--Myth Dawncrest
             id = 3348,
             type = "currency",
             priority = 105,
-            -- customColorToggle = true,
-            -- customColor = {0.8,0.2,0.8,1}, -- TBD
+            customColorToggle = true,
+            customColor = {0.8, 0.2, 0.8, 1}, -- magenta
+            slashGroup = "Dawncrest",
             parentMapIDs = {"r2537"},
         },
         {--Shard of Dundun
