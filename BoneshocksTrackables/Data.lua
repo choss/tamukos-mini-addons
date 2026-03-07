@@ -11,6 +11,87 @@ BT.covenantMaps = {1707,1708,1698,1701,1702,1703,1699,1700} -- K,NL,NF,V
 
 -- Main trackables table
 BT.trackables = {
+    [11] = {
+        -- ===MIDNIGHT=== (Expansion 12.0)
+        -- Quel'Thalas (continent): 2537 | Eversong Woods: 2395 | Silvermoon City: 2393
+        -- Voidstorm: 2405 | Harandar: 2413 | Zul'Aman: 2437 | Isle of Quel'Danas: 2424
+        -- currencies:
+        {--Adventurer Dawncrest
+            id = 3383,
+            type = "currency",
+            priority = 101,
+            -- customColorToggle = true,
+            -- customColor = {0,0.8,1,1}, -- TBD
+            parentMapIDs = {"r2537"},
+        },
+        {--Veteran Dawncrest
+            id = 3342,
+            type = "currency",
+            priority = 102,
+            -- customColorToggle = true,
+            -- customColor = {0,0.44,0.87,1}, -- TBD
+            parentMapIDs = {"r2537"},
+        },
+        {--Champion Dawncrest
+            id = 3343,
+            type = "currency",
+            priority = 103,
+            -- customColorToggle = true,
+            -- customColor = {0.64,0.21,0.93,1}, -- TBD
+            parentMapIDs = {"r2537"},
+        },
+        {--Hero Dawncrest
+            id = 3346,
+            type = "currency",
+            priority = 104,
+            -- customColorToggle = true,
+            -- customColor = {1,0.5,0,1}, -- TBD
+            parentMapIDs = {"r2537"},
+        },
+        {--Myth Dawncrest
+            id = 3348,
+            type = "currency",
+            priority = 105,
+            -- customColorToggle = true,
+            -- customColor = {0.8,0.2,0.8,1}, -- TBD
+            parentMapIDs = {"r2537"},
+        },
+        {--Shard of Dundun
+            id = 3376,
+            type = "currency",
+            parentMapIDs = {"r2537"},
+        },
+        {--Unalloyed Abundance
+            id = 3377,
+            type = "currency",
+            parentMapIDs = {"r2537"},
+        },
+        {--Luminous Dust
+            id = 3385,
+            type = "currency",
+            uiMapIDs = {2413}, -- Harandar only
+        },
+        {--Voidlight Marl
+            id = 3316,
+            type = "currency",
+            parentMapIDs = {"r2537"},
+        },
+        {--Brimming Arcana
+            id = 3379,
+            type = "currency",
+            parentMapIDs = {"r2395"}, -- Eversong Woods + Silvermoon City
+        },
+        {--Uncontaminated Void Sample
+            id = 3400,
+            type = "currency",
+            uiMapIDs = {2405}, -- Voidstorm only
+        },
+        {--Remnant of Anguish
+            id = 3392,
+            type = "currency",
+            parentMapIDs = {"r2537"},
+        },
+    },
     [10] = {
         
         -- ===THE WAR WITHIN===

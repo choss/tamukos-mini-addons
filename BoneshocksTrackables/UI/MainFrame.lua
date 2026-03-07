@@ -36,8 +36,7 @@ function BT:InitMainFrame()
 	if BT.db.frame.x and BT.db.frame.y then
 		frame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", BT.db.frame.x, BT.db.frame.y)
 	else
-		-- Default to Top-Left anchor (visually centered) to ensure downward growth
-		frame:SetPoint("TOPLEFT", UIParent, "CENTER", -100, 50)
+		frame:SetPoint("CENTER")
 	end
 	
 	-- Scale

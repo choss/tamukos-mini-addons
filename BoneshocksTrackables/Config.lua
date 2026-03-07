@@ -28,6 +28,7 @@ BT.defaults = {
 		trackables = {
 			enabled = true,
 			expansions = {
+				[11] = true,  -- Midnight
 				[10] = true,  -- War Within
 				[9] = true,   -- Dragonflight
 				[8] = true,   -- Shadowlands

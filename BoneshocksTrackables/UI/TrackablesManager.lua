@@ -4,6 +4,7 @@
 local addonName, BT = ...
 
 local expansionNames = {
+	[11] = "Midnight",
 	[10] = "The War Within",
 	[9] = "Dragonflight",
 	[8] = "Shadowlands",

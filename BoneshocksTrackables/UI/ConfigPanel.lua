@@ -248,6 +248,7 @@ function BT:CreateConfigPanel()
 	
 	-- Modern Expansions
 	local modernExpansions = {
+		{id = 11, name = "Midnight"},
 		{id = 10, name = "The War Within"},
 		{id = 9, name = "Dragonflight"},
 		{id = 8, name = "Shadowlands"},
