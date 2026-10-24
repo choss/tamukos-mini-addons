@@ -1,1 +1,6 @@
 /source/
+/source-nancy/
+dist/
+*.7z
+*.zip
+UiMap.*.csv
