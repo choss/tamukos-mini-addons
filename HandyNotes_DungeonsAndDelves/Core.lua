@@ -54,14 +54,6 @@ local options = {
             desc = "Show the note line in the marker tooltip",
             order = 40,
         },
-        waypoint_all = {
-            type = "execute",
-            name = "Add TomTom waypoints",
-            desc = "Add a TomTom waypoint for every spawn location",
-            func = function() pluginHandler:AddAllWaypoints() end,
-            disabled = function() return not TomTom end,
-            order = 50,
-        },
     },
 }
 
@@ -84,14 +76,6 @@ local function SetMapWaypoint(mapID, coord)
     local x, y = HandyNotes:getXY(coord)
     C_Map.SetUserWaypoint(UiMapPoint.CreateFromCoordinates(mapID, x, y))
     C_SuperTrack.SetSuperTrackedUserWaypoint(true)
-end
-
-function pluginHandler:AddAllWaypoints()
-    for mapID, points in pairs(ns.points) do
-        for coord in pairs(points) do
-            AddWaypoint(mapID, coord)
-        end
-    end
 end
 
 -- Node interaction

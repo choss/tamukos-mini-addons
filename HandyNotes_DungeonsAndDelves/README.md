@@ -15,6 +15,5 @@ Requires HandyNotes. Copy the `HandyNotes_DungeonsAndDelves` folder to `World of
 
 - Options: icon scale/alpha, minimap toggle, tooltip notes
 - Right-click a marker on the world map for a menu with Set waypoint and Add TomTom waypoint
-- 'Add TomTom waypoints' button imports every spot into TomTom (if installed)
 - `/hnd` opens the settings
 - `/hnd_debug` prints the current map ID, position and encoded coordinate for adding new points
