@@ -19,3 +19,28 @@ ns.points[2647] = {
     [58502170] = { label = "Nalorakk's Rest",   note = NOTE, icon = ICON },
 }
 
+-- Map ID 2342 = City of Threads (dungeon instance), parent map ID 2213
+-- Coordinates were converted from WeakAura pixel offsets; use /hnd_debug at each location to get exact coords
+ns.points[2342] = {
+    -- Queen's Eyes
+    [55804270] = { label = "1st Eye", note = "Begin at this Eye while fighting Xeph'itik", icon = "Interface\\Icons\\Ability_Evoker_EyeOfInfinity" },
+
+    -- 2nd Zone (Blue)
+    [69204950] = { label = "2nd Zone - Eye 1", note = "Blue zone, first Eye",  icon = "Interface\\Icons\\Spell_Shadow_Shadesofdarkness" },
+    [82405910] = { label = "2nd Zone - Eye 2", note = "Blue zone, second Eye", icon = "Interface\\Icons\\Spell_Shadow_Shadesofdarkness" },
+    [82404890] = { label = "2nd Zone - Eye 3", note = "Blue zone, third Eye",  icon = "Interface\\Icons\\Spell_Shadow_Shadesofdarkness" },
+
+    -- 3rd Zone (Green)
+    [10270350] = { label = "3rd Zone - Eye 1", note = "Green zone, first Eye",  icon = "Interface\\Icons\\Spell_Shadow_Twilight" },
+    [10440037] = { label = "3rd Zone - Eye 2", note = "Green zone, second Eye", icon = "Interface\\Icons\\Spell_Shadow_Twilight" },
+    [95000000] = { label = "3rd Zone - Eye 3", note = "Green zone, third Eye",  icon = "Interface\\Icons\\Spell_Shadow_Twilight" },
+
+    -- 4th Zone (Red)
+    [56801880] = { label = "4th Zone - Eye 1", note = "Red zone, first Eye",  icon = "Interface\\Icons\\Spell_Shadow_Possession" },
+    [39201120] = { label = "4th Zone - Eye 2", note = "Red zone, second Eye", icon = "Interface\\Icons\\Spell_Shadow_Possession" },
+    [66000250] = { label = "4th Zone - Eye 3", note = "Red zone, third Eye",  icon = "Interface\\Icons\\Spell_Shadow_Possession" },
+
+    -- Last Eye (Executor Nizrek)
+    [46701130] = { label = "Last Eye", note = "Final Eye before Executor Nizrek", icon = "Interface\\Icons\\INV_Enchant_EssenceMagicLarge" },
+}
+
