@@ -7,5 +7,6 @@
 ## SavedVariables: HandyNotes_DungeonsAndDelvesDB
 
 Data.lua
+Buffs.lua
 Core.lua
 Debug.lua

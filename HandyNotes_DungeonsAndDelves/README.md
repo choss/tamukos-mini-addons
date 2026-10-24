@@ -6,6 +6,7 @@ HandyNotes markers for dungeons and delves.
 
 - Labyrinth of Kindo'jan: possible Hexmask / locked room spawns (Chamber of Rites, The Cave Towers, Akil'zon's Roost, Jan'alai's Refuge, Nalorakk's Rest)
 - City of Threads: Queen's Eyes locations
+- Mythic+ dungeon buffs and pickups: Den of Nalorakk, Magisters' Terrace, Windrunner Spire, Algeth'ar Academy, Brackenhide Hollow, Halls of Infusion, Uldaman, Mists of Tirna Scithe, Stonevault, City of Threads, Ara-Kara (coordinates from willoucom/Handynotes_MythicPlus)
 
 ## Installation
 
