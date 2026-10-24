@@ -1,0 +1,18 @@
+﻿## Interface: 120005, 120001, 50503, 40402, 20505, 11508
+## Title: SharedMedia_Tamuko
+## X-Wago-ID: 123456
+## Category-enUS: Media
+## Category-deDE: Medien
+## Category-esES: Medios
+## Category-esMX: Medios
+## Category-frFR: MÃ©dias
+## Category-itIT: Media
+## Category-koKR: ë¯¸ë”ì–´
+## Category-ptBR: MÃ­dia
+## Category-ruRU: ÐœÐµÐ´Ð¸Ð°
+## Category-zhCN: æè´¨
+## Category-zhTW: æè³ª
+MyMedia.lua
+libs\LibStub\LibStub.lua
+libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
+libs\LibSharedMedia-3.0\LibSharedMedia-3.0.lua
