@@ -26,15 +26,15 @@ local lastUpdate = 0
 -- Portal/Dungeon data
 local portalData = {
     {
-        name = "Dungeon 1",
-        icon = "Vehicle-HammerGold-1",
+        name = "Skyreach",
+        icon = "Vehicle-Air-Occupied",
         mapID = 2266,
         x = 0.6464,
         y = 0.4409,
     },
     {
-        name = "Eco-Dome & Tazavesh",
-        icon = "majorfactions_icons_ManaforgeVandals512",
+        name = "Pit of Saron",
+        icon = "Vehicle-Air-Alliance",
         mapID = 2266,
         x = 0.7435,
         y = 0.4726,
@@ -47,21 +47,21 @@ local portalData = {
         y = 0.6171,
     },
     {
-        name = "Halls of Atonement",
-        icon = "talents-heroclass-deathknight-sanlayn",
+        name = "Algeth'ar Academy",
+        icon = "SeedPlanting-Full",
         mapID = 2266,
         x = 0.7037,
         y = 0.7267,
     },
     {
-        name = "Dungeon 5",
-        icon = "Vehicle-HammerGold-1",
+        name = "Seat of the Triumvirate",
+        icon = "DemonShip_East",
         mapID = 2266,
         x = 0.6059,
         y = 0.6927,
     },
     {
-        name = "Dornogal",
+        name = "Silvermoon",
         icon = "poi-hub",
         mapID = 2266,
         x = 0.4348,
