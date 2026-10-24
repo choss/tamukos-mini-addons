@@ -226,6 +226,24 @@ function BT:CreateConfigPanel()
 		Settings.CreateCheckbox(category, setting, tooltip)
 	end
 
+	-- Hide in instance
+	do
+		local variable = "BoneshocksTrackables_HideInInstance"
+		local name = "  Hide inside dungeons and raids"
+		local tooltip = "Hide all trackables when inside a dungeon, raid, or scenario"
+		local defaultValue = true
+
+		local setting = Settings.RegisterProxySetting(category, variable, Settings.VarType.Boolean, name, defaultValue,
+			function() return BT.db.modules.trackables.hideInInstance end,
+			function(value)
+				BT.db.modules.trackables.hideInInstance = value
+				if BT.TrackablesContainer then
+					BT.TrackablesContainer:GetScript("OnEvent")(BT.TrackablesContainer, "ZONE_CHANGED")
+				end
+			end)
+		Settings.CreateCheckbox(category, setting, tooltip)
+	end
+
 	-- Button to open Trackables Manager
 	do
 		local function OpenTrackablesManager()

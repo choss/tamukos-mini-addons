@@ -49,6 +49,7 @@ BT.defaults = {
 			colorName = true,
 			mergeExtraInfo = false,  -- Merge extra into amount number
 			mergeSlashGroups = true, -- Merge slash-grouped currencies (e.g. Dawncrests) into one row
+			hideInInstance = true, -- Hide trackables when inside a dungeon or raid
 		},
 	},
 	customTrackables = {},  -- User-added trackables

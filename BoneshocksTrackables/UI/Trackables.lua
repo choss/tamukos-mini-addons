@@ -13,6 +13,14 @@ function BT:InitTrackables()
 	
 	-- Function to get active trackables based on current zone
 	local function GetActiveTrackables()
+		-- Hide everything when inside an instance if option is set
+		if BT.db.modules.trackables.hideInInstance then
+			local _, instanceType = IsInInstance()
+			if instanceType == "party" or instanceType == "raid" or instanceType == "scenario" then
+				return {}
+			end
+		end
+
 		local zoneText = GetZoneText():gsub("%s+", ""):lower()
 		local minimapText = GetMinimapZoneText():gsub("%s+", ""):lower()
 		local mapID = C_Map.GetBestMapForUnit("player")
@@ -293,6 +301,7 @@ function BT:InitTrackables()
 	container:RegisterEvent("ZONE_CHANGED_INDOORS")
 	container:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 	container:RegisterEvent("PLAYER_ENTERING_WORLD")
+	container:RegisterEvent("PLAYER_ENTERING_INSTANCE")
 	container:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
 	container:RegisterEvent("BAG_UPDATE")
 	
