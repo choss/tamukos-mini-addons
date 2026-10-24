@@ -36,6 +36,19 @@ See [DungeonPortalsMap/README.md](DungeonPortalsMap/README.md) for full details 
 
 ---
 
+### [DMF Items Tracker](DMFItemsTracker/)
+Shows your Darkmoon Faire profession turn-in items with bag counts and quest completion checks.
+
+**Features:**
+- Lists Cooking/Fishing plus your learned professions
+- Colors requirements green when you have enough, red when missing
+- Auto-updates on bag, quest, skill, and zone changes
+- Draggable frame with lock/reset and optional zone-only display
+
+See [DMFItemsTracker/README.md](DMFItemsTracker/README.md) for full details and slash commands.
+
+---
+
 ## Installation
 
 1. Clone or download this repository.

@@ -16,11 +16,21 @@ echo "=== WoW Addon Release Helper ==="
 echo "This script will update the .toc versions and package your addons."
 echo ""
 
-# 1. Prompt for Version
-echo "Enter the new version number (e.g., 1.0.5) or press Enter to skip version bump:"
-read -r VERSION
+# Mode Selection
+read -p "Is this a Pre-Release (Nightly)? (y/N) " -n 1 -r
+echo ""
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    IS_PRERELEASE=true
+    VERSION="nightly"
+    echo "Mode: PRE-RELEASE (No version bump, no permanent git tags)"
+else
+    IS_PRERELEASE=false
+    # 1. Prompt for Version
+    echo "Enter the new version number (e.g., 1.0.5) or press Enter to skip version bump:"
+    read -r VERSION
+fi
 
-if [[ -n "$VERSION" ]]; then
+if [[ "$IS_PRERELEASE" == "false" && -n "$VERSION" ]]; then
     # Validate version format (simple check)
     if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+ ]]; then
         echo "Warning: '$VERSION' does not look like a standard semantic version (x.y.z)."
@@ -60,12 +70,11 @@ if [[ -n "$VERSION" ]]; then
         git tag "v$VERSION"
         
         echo "Tagged v$VERSION"
-        echo "Don't forget to run: git push && git push --tags"
     else
         echo "Git not found, skipping tag creation."
     fi
 else
-    echo "Skipping version update."
+    echo "Skipping version update / TOC modification."
 fi
 
 echo ""
@@ -87,16 +96,31 @@ echo ""
 read -p "Do you want to Push & Release to GitHub? (y/N) " -n 1 -r
 echo ""
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    echo "Pushing changes and tags..."
-    git push && git push --tags
+    echo "Pushing changes..."
+    # Always push code
+    git push
 
     if command -v gh &> /dev/null; then
-        if [[ -n "$VERSION" ]]; then
+        if [[ "$IS_PRERELEASE" == "true" ]]; then
+            echo "Handling Nightly Release..."
+            # Clean up old nightly if exists
+            echo "Cleaning up old 'nightly' tag..."
+            gh release delete nightly -y --cleanup-tag 2>/dev/null || echo "No previous nightly found to delete."
+            
+            # Create new nightly
+            echo "Uploading new 'nightly' release..."
+            # Target current branch
+            CURRENT_BRANCH=$(git branch --show-current)
+            gh release create nightly dist/*.zip --prerelease --title "Nightly Build $(date +'%Y-%m-%d')" --notes "Automated nightly build." --target "$CURRENT_BRANCH"
+            
+        elif [[ -n "$VERSION" ]]; then
+            echo "Pushing tags..."
+            git push --tags
             echo "Creating GitHub Release v$VERSION..."
             gh release create "v$VERSION" dist/*.zip --title "v$VERSION" --generate-notes
         else
-            echo "Warning: No version set, checking for latest tag..."
-            echo "Skipping automatic release creation because logic relies on \$VERSION."
+            echo "Warning: No version set and not in pre-release mode."
+            echo "Skipping automatic release creation."
         fi
     else
         echo "Warning: 'gh' (GitHub CLI) not found. Cannot create release automatically."
