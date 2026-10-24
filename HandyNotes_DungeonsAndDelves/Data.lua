@@ -18,6 +18,8 @@ ns.points[2647] = {
     [18801820] = { label = "Jan'alai's Refuge", note = NOTE, icon = ICON },
     [58502170] = { label = "Nalorakk's Rest",   note = NOTE, icon = ICON },
 }
+-- Map ID 2671 = Labyrinth of Kindo'jan (zone-type map the player is on); same coordinates as 2647
+ns.points[2671] = ns.points[2647]
 
 -- Map ID 2342 = City of Threads (dungeon instance), parent map ID 2213
 -- Coordinates were converted from WeakAura pixel offsets; use /hnd_debug at each location to get exact coords
