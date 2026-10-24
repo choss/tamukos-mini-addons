@@ -80,6 +80,12 @@ local function AddWaypoint(mapID, coord)
     })
 end
 
+local function SetMapWaypoint(mapID, coord)
+    local x, y = HandyNotes:getXY(coord)
+    C_Map.SetUserWaypoint(UiMapPoint.CreateFromCoordinates(mapID, x, y))
+    C_SuperTrack.SetSuperTrackedUserWaypoint(true)
+end
+
 function pluginHandler:AddAllWaypoints()
     for mapID, points in pairs(ns.points) do
         for coord in pairs(points) do
@@ -112,6 +118,24 @@ end
 
 function pluginHandler:OnLeave()
     GameTooltip:Hide()
+end
+
+-- Right-click context menu
+function pluginHandler:OnClick(button, down, mapID, coord)
+    if button ~= "RightButton" or not down then return end
+    MenuUtil.CreateContextMenu(self, function(owner, root)
+        root:CreateTitle("HandyNotes: Labyrinth of Kindo'jan")
+        local waypoint = root:CreateButton("Set waypoint", function()
+            SetMapWaypoint(mapID, coord)
+        end)
+        waypoint:SetEnabled(C_Map.CanSetUserWaypointOnMap(mapID))
+        if TomTom then
+            root:CreateButton("Add TomTom waypoint", function()
+                AddWaypoint(mapID, coord)
+            end)
+        end
+        root:CreateButton("Close", function() end)
+    end)
 end
 
 -- Node iterator
