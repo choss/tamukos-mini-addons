@@ -180,6 +180,14 @@ local function Init()
     HandyNotes:RegisterPluginDB(PLUGIN_NAME, pluginHandler, options)
 end
 
+-- /hnd opens the HandyNotes window on this plugin's settings
+SLASH_HNDSETTINGS1 = "/hnd"
+SlashCmdList["HNDSETTINGS"] = function()
+    local dialog = LibStub("AceConfigDialog-3.0")
+    dialog:Open("HandyNotes")
+    dialog:SelectGroup("HandyNotes", "plugins", PLUGIN_NAME)
+end
+
 local EventFrame = CreateFrame("Frame")
 EventFrame:RegisterEvent("PLAYER_LOGIN")
 EventFrame:SetScript("OnEvent", function(self, event)
