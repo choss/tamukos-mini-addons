@@ -1,15 +1,15 @@
 ﻿local ADDON_NAME, ns = ...
 local HandyNotes = LibStub("AceAddon-3.0"):GetAddon("HandyNotes")
 
-local PLUGIN_NAME = "Kindojan"
+local PLUGIN_NAME = "DungeonsAndDelves"
 
 local pluginHandler = {}
 LibStub("AceEvent-3.0"):Embed(pluginHandler)
 
 local options = {
     type = "group",
-    name = "Labyrinth of Kindo'jan",
-    desc = "Possible Hexmask / locked room spawns",
+    name = "Dungeons & Delves",
+    desc = "Dungeon and delve locations and markers",
     get = function(info) return ns.db[info[#info]] end,
     set = function(info, v)
         ns.db[info[#info]] = v
@@ -17,7 +17,7 @@ local options = {
     end,
     args = {
         desc = {
-            name = "Settings for HandyNotes Labyrinth of Kindo'jan",
+            name = "Settings for HandyNotes Dungeons & Delves",
             type = "description",
             order = 0,
         },
@@ -124,7 +124,7 @@ end
 function pluginHandler:OnClick(button, down, mapID, coord)
     if button ~= "RightButton" or not down then return end
     MenuUtil.CreateContextMenu(self, function(owner, root)
-        root:CreateTitle("HandyNotes: Labyrinth of Kindo'jan")
+        root:CreateTitle("HandyNotes: Dungeons & Delves")
         local waypoint = root:CreateButton("Set waypoint", function()
             SetMapWaypoint(mapID, coord)
         end)
@@ -174,7 +174,7 @@ local function Init()
         },
     }
 
-    local db = LibStub("AceDB-3.0"):New("HandyNotes_KindojanDB", defaults)
+    local db = LibStub("AceDB-3.0"):New("HandyNotes_DungeonsAndDelvesDB", defaults)
     ns.db = db.profile
 
     HandyNotes:RegisterPluginDB(PLUGIN_NAME, pluginHandler, options)
